@@ -3,20 +3,35 @@
     import Chat from 'phosphor-svelte/lib/Chat'
     import X from 'phosphor-svelte/lib/X'
 
+    /** Messages count */
     export let count = 0
+
+    /** Chat name */
     export let name = 'Чат'
+
+    /** Is chat selected */
     export let selected = false;
 
+    /** Event dispatcher */
     const dispatch = createEventDispatcher()
 
-    function deleteChat() {
+    /** Renaming state */
+    let isEditing = false
+
+    /** New name value */
+    let newName = name
+
+    /**
+     * Chat deletion event handler
+     */
+    function onChatDelete() {
         dispatch('delete')
     }
 
-    let isEditing = false
-    let newName = name
-
-    function stopEditing() {
+    /**
+     * Chat rename finish event handler
+     */
+    function onFinishEdit() {
         name = newName;
         isEditing = false;
         dispatch('save-name', name);
@@ -33,11 +48,11 @@
     </span>
     {#if isEditing}
         <input type="text"
-               on:blur={stopEditing}
+               on:blur={onFinishEdit}
                bind:value={newName}>
     {:else}
         {name}
-        <span class="close" on:click|stopPropagation={deleteChat}>
+        <span class="close" on:click|stopPropagation={onChatDelete}>
             <X size={10} weight="bold" />
         </span>
     {/if}
@@ -60,9 +75,9 @@
         margin: 0;
         padding: 0 8px 0 4px;
         font: 300 16px Inter, sans-serif;
-        background: #2a2e2f;
-        color: white;
-        border: 1px solid #414141;
+        background: var(--panel);
+        color: rgba(255, 255, 255, .5);
+        border: 1px solid var(--border);
         border-radius: 16px;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -75,15 +90,16 @@
     }
 
     button.chat-chip.selected {
-        filter: brightness(120%);
-        border-color: #3f5175;
+        background: var(--g-active);
+        border-color: var(--primary);
+        color: white;
     }
 
     span.message-count {
-        padding: 2px 8px ;
-        background: #262626;
+        padding: 2px 8px;
+        background: var(--surface);
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, .15);
+        border: 1px solid var(--border);
     }
 
     span.close {

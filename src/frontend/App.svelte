@@ -1,5 +1,8 @@
 <script lang="ts">
+  import {fade} from 'svelte/transition';
   import Chat from './Chat.svelte';
+  import Header from './Header.svelte';
+  import ChatIcon from 'phosphor-svelte/lib/ChatCircle';
 
   let expanded = true
   $: window.core?.focus(expanded)
@@ -24,15 +27,15 @@
     </button>
 
     <div class="ai-icon">
-      AI
+      <ChatIcon size={32} color="#3DA2FF" weight="bold"/>
     </div>
 
-    <div class="content">
-      <div class="header">
-        <h3>AI ассистент</h3>
+    {#if expanded}
+      <div class="content" transition:fade={{duration:400}}>
+        <Header />
+        <Chat />
       </div>
-      <Chat />
-    </div>
+    {/if}
   </div>
 </div>
 
@@ -57,7 +60,7 @@
     position: relative;
     width: calc(100% - 8px);
     height: calc(100% - 8px);
-    background: #2d2d2d;
+    background: var(--surface);
     pointer-events: visiblePainted;
     display: flex;
     flex-flow: row;
@@ -150,19 +153,5 @@
 
   .box.collapsed .ai-icon {
     opacity: 1;
-  }
-
-  .header {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: center;
-    background: #2d3236;
-    border-bottom: 1px solid #414141;
-  }
-
-  .header h3 {
-    font: 500 16px Inter, sans-serif;
-    color: white;
   }
 </style>

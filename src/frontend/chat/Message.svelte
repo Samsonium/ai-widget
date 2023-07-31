@@ -51,6 +51,23 @@
         color: white;
     }
 
+    .message.system {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    .message.system .content {
+        margin: 0 32px;
+        background: var(--panel);
+        border-radius: 16px;
+        padding: 8px 16px;
+        font: 400 14px Inter, sans-serif;
+        color: white;
+        border: 1px solid var(--border);
+    }
+
     .message.user {
         align-items: flex-end;
     }
@@ -58,10 +75,11 @@
     .message.user .content, .message.assistant .content {
         padding: 8px 12px;
         margin-top: 4px;
-        background: #2a2a2a;
-        border: 1px solid black;
+        background: var(--panel);
+        border: 1px solid var(--border);
         border-radius: 16px;
-        line-height: calc(15px * 1.6);
+        font: 400 16px Inter, sans-serif;
+        line-height: 1.7;
     }
 
     :global(span.code-lang) {
@@ -73,7 +91,8 @@
         background: #22292a;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, .25);
+        border-color: var(--border);
+        border-style: solid;
         border-width: 1px 1px 0 1px;
         margin: 16px 0 -1px 8px;
     }
@@ -87,6 +106,8 @@
         border-radius: 8px;
         margin: 0;
         user-select: all;
+        font: 400 16px monospace;
+        line-height: 1.6;
     }
 
     :global(code) {

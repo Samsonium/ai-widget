@@ -1,7 +1,7 @@
 {
   "name": "ai-widget",
   "description": "AI assistant widget",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fuzzc0re/electron-svelte-typescript.git"
@@ -63,7 +63,8 @@
     "axios": "^1.4.0",
     "electron-log": "^4.3.5",
     "electron-store": "^8.0.0",
-    "electron-updater": "^5.2.1"
+    "electron-updater": "^5.2.1",
+    "phosphor-svelte": "^1.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
