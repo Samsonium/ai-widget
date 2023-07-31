@@ -11,10 +11,19 @@
         selected,
         chats
     } = chat;
-    $: console.log($selected);
 
     // Input message value
     let value: string = '';
+
+    // Chat container
+    let container: HTMLDivElement;
+
+    // Subscribe for aiMessage to scroll page to bottom when AI types message
+    aiMessage.subscribe(() => {
+        container?.scrollTo({
+            top: container?.scrollHeight
+        })
+    });
 
     /** Submit message form event handler */
     function onSubmitMessage(): void {
@@ -48,7 +57,7 @@
             />
         {/each}
     </div>
-    <div class="messages">
+    <div class="messages" bind:this={container}>
         <div class="contents">
             {#each $chats[$selected]?.messages ?? [] as msg}
                 <Message {...msg}/>
@@ -69,9 +78,9 @@
 
 <style>
     .chat-box {
-        min-height: 100%;
+        height: 100vh;
         display: grid;
-        grid-template-rows: 48px 88% 48px;
+        grid-template-rows: 48px 1fr 48px;
     }
 
     .chat-list {
@@ -120,6 +129,7 @@
     }
 
     .messages {
+        max-height: calc(100vh - 160px);
         display: block;
         overflow-x: hidden;
         overflow-y: auto;
