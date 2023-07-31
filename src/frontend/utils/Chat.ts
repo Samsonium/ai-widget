@@ -50,7 +50,9 @@ export default class Chat {
 
     public constructor() {
         try {
-            this.chats = writable(JSON.parse(localStorage.getItem('ai-history')!));
+            const content = JSON.parse(localStorage.getItem('ai-history')!);
+            if (content) this.chats = writable(content);
+            else this.chats = writable([]);
         } catch (_) {
             this.chats = writable([]);
         }
@@ -210,7 +212,7 @@ export default class Chat {
             });
 
             chatSnapshot = chats[get(this.selected)].messages
-                .filter((msg) => (msg.role !== 'system')).slice(0, 4);
+                .filter((msg) => (msg.role !== 'system'));
             chatMeta = chats[get(this.selected)].metadata
                 .filter((meta) => (meta.enabled));
 
@@ -226,7 +228,7 @@ export default class Chat {
                     role: 'system',
                     content: meta.context
                 })),
-                ...chatSnapshot
+                ...chatSnapshot.reverse().slice(0, 4).reverse()
             ] as MessageDefinition[]
         });
 
